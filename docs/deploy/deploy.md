@@ -23,7 +23,55 @@ In the corresponding GitHub repository, the `github-actions[bot]` user will need
 
 ## GitHub Actions Workflow
 
-Create the following GitHub Actions workflow in `.github/workflows`:
+Create one of the following GitHub Actions workflows in `.github/workflows` based on your setup:
+
+### Docusaurus in Root
+
+```yml title=".github/workflows/deploy-docs.yml"
+name: Deploy Docusaurus to GitHub Pages
+
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build Docusaurus to gh-pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+      - name: Build website
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+```
+
+### Docusaurus in Monorepo
+
+:::info
+
+The following example assumes that `docs` folder at the repository root contains the Docusaurus root. Of note, even with `defaults.run.working-directory: docs` specified, you still need to explicitly set:
+
+* `cache-dependency-path` in *actions/setup-node@v3*
+* `publish_dir: docs/build` in *Deploy to GitHub Pages*
+
+:::
 
 ```yml title=".github/workflows/deploy-docs.yml"
 name: Deploy Docusaurus to GitHub Pages
@@ -36,15 +84,12 @@ on:
       - main
 
 defaults:
-  run:    
-    # In a monorepo with embedded docs, 
-    # point to the docusaurus root
-    # i.e. - docs
-    working-directory: .
+  run:
+    working-directory: docs
 
 jobs:
   deploy:
-    name: Deploy to GitHub Pages
+    name: Build Docusaurus to gh-pages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -52,9 +97,7 @@ jobs:
         with:
           node-version: 18
           cache: npm
-          # In a monorepo with embedded documentation, the path
-          # to package-lock.json explicitly be specified:
-          # cache-dependency-path: docs/package-lock.json
+          cache-dependency-path: docs/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -65,17 +108,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # In a monorepo with embedded documentation,
-          # this must point to the path of build from
-          # the repo root, regardless of whether or not
-          # a default working directory has been set.
-          # i.e. - publish_dir: docs/build
-          publish_dir: build
-          # The following lines assign commit authorship to the official
-          # GH-Actions bot for deploys to `gh-pages` branch:
-          # https://github.com/actions/checkout/issues/13#issuecomment-724415212
-          # The GH actions bot is used by default if you didn't specify the two fields.
-          # You can swap them out with your own user credentials.
+          publish_dir: docs/build
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
 ```
