@@ -35,15 +35,17 @@ on:
     branches:
       - main
 
+defaults:
+  run:    
+    # In a monorepo with embedded docs, 
+    # point to the docusaurus root
+    # i.e. - docs
+    working-directory: .
+
 jobs:
   deploy:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        # In a monorepo with embedded documentation, use relative paths
-        # to the docusaurus docs root. i.e. - ./docs
-        working-directory: .
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -52,7 +54,7 @@ jobs:
           cache: npm
           # In a monorepo with embedded documentation, the path
           # to package-lock.json explicitly be specified:
-          # cache-dependency-path: ./docs/package-lock.json
+          # cache-dependency-path: docs/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -63,7 +65,12 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          # In a monorepo with embedded documentation,
+          # this must point to the path of build from
+          # the repo root, regardless of whether or not
+          # a default working directory has been set.
+          # i.e. - publish_dir: docs/build
+          publish_dir: build
           # The following lines assign commit authorship to the official
           # GH-Actions bot for deploys to `gh-pages` branch:
           # https://github.com/actions/checkout/issues/13#issuecomment-724415212
