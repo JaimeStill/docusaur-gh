@@ -9,24 +9,16 @@ const config = {
   title: 'Docusaurus for GitHub Pages',
   tagline: 'Setup Docusaurus for GitHub Pages',
   favicon: 'img/favicon.ico',
-
-  // Set the production url of your site here
   url: 'https://docusaur-gh.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'JaimeStill', // Usually your GitHub org/user name.
-  projectName: 'docusaur-gh', // Usually your repo name.
+  organizationName: 'JaimeStill',
+  projectName: 'docusaur-gh',
+  deploymentBranch: 'main',
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
