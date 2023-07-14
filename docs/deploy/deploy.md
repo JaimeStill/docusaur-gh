@@ -11,7 +11,7 @@ Ensure that [docusaurus.config.js](../docusaurus.config.js) is correctly configu
 
 :::
 
-## Configure GitHub Repository
+## Configure Actions Permissions
 
 In the corresponding GitHub repository, the `github-actions[bot]` user will need the appropriate **Actions** permissions. 
 
@@ -20,16 +20,6 @@ In the corresponding GitHub repository, the `github-actions[bot]` user will need
 2. In the **Workflow permissions** section, check *Read and write permissions* and click **Save**:
 
     ![actions-permissions](./actions-permissions.png)
-
-Additionally, the repository needs to be configured to enable GitHub Pages.
-
-1. Navigate to `https://github.com/<org-or-user>/<repo>/settings/pages`.
-
-2. Set **Source** to *Deploy from a branch*.
-
-3. Set **Branch** to `gh-pages` at `/(root)` and click **Save**:
-
-    ![pages-config](./pages-config.png)
 
 ## GitHub Actions Workflow
 
@@ -87,7 +77,19 @@ Push the changes up to the remote repository, and verify that the action runs su
 
 ![workflow-runs](./workflow-runs.png)
 
-Once successful, you should see the following in the GitHub Pages settings for the repo:
+## Configure GitHub Pages
+
+Once the workflow has successfully run, the repository needs to be configured to enable GitHub Pages.
+
+1. Navigate to `https://github.com/<org-or-user>/<repo>/settings/pages`.
+
+2. Set **Source** to *Deploy from a branch*.
+
+3. Set **Branch** to `gh-pages` at `/(root)` and click **Save**:
+
+    ![pages-config](./pages-config.png)
+    
+You should see the following in the GitHub Pages settings once the docs are deployed:
 
 ![pages-deployed](./pages-deployed.png)
 
