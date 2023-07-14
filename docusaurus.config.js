@@ -13,7 +13,7 @@ const config = {
   baseUrl: '/',
   organizationName: 'JaimeStill',
   projectName: 'docusaur-gh',
-  deploymentBranch: 'main',
+  deploymentBranch: 'gh-pages',
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
