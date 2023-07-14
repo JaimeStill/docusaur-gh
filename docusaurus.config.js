@@ -9,7 +9,7 @@ const config = {
   title: 'Docusaurus for GitHub Pages',
   tagline: 'Setup Docusaurus for GitHub Pages',
   favicon: 'img/favicon.ico',
-  url: 'https://docusaur-gh.github.io',
+  url: 'https://jaimestill.github.io/docusaur-gh/',
   baseUrl: '/',
   organizationName: 'JaimeStill',
   projectName: 'docusaur-gh',
