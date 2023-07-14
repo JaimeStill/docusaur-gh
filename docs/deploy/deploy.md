@@ -51,6 +51,8 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
+        # In a monorepo with embedded documentation, use relative paths
+        # to the docusaurus docs root. i.e. - ./docs
         working-directory: .
     steps:
       - uses: actions/checkout@v3
@@ -58,6 +60,9 @@ jobs:
         with:
           node-version: 18
           cache: npm
+          # In a monorepo with embedded documentation, the path
+          # to package-lock.json explicitly be specified:
+          # cache-dependency-path: ./docs/package-lock.json
 
       - name: Install dependencies
         run: npm ci
