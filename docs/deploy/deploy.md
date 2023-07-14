@@ -31,7 +31,7 @@ Additionally, the repository needs to be configured to enable GitHub Pages.
 
     ![pages-config](./pages-config.png)
 
-## GitHub Actions Workflows
+## GitHub Actions Workflow
 
 Create the following GitHub Actions workflow in `.github/workflows`:
 
