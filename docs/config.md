@@ -42,7 +42,8 @@ Set the following to align the documentation with the metadata of your site repo
 const config = {
   title: '<docs-title>',
   tagline: '<docs-tagline>',
-  url: '<docs-gh-pages-url>',
+  url: 'https://<gh-org-or-user>.github.io',
+  baseUrl: '/<gh-repo-name>',
   organizationName: '<gh-org-or-user>',
   projectName: '<gh-repo-name>',
   deploymentBranch: '<gh-deploy-branch>',

@@ -1,5 +1,7 @@
 # Docusaurus for GitHub Pages
 
+[Live Documentation](https://jaimestill.github.io/docusaur-gh/)
+
 This repository represents establishing familiarity with Docusaurus in an attempt to baseline a simple docs-only GitHub Pages setup.
 
 ## Initialization

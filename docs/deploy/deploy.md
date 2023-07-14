@@ -11,15 +11,37 @@ Ensure that [docusaurus.config.js](../docusaurus.config.js) is correctly configu
 
 :::
 
+## Configure GitHub Repository
+
+In the corresponding GitHub repository, the `github-actions[bot]` user will need the appropriate **Actions** permissions. 
+
+1. Navigate to `https://github.com/<org-or-user>/<repo>/settings/actions`.
+
+2. In the **Workflow permissions** section, check *Read and write permissions* and click **Save**:
+
+    ![actions-permissions](./actions-permissions.png)
+
+Additionally, the repository needs to be configured to enable GitHub Pages.
+
+1. Navigate to `https://github.com/<org-or-user>/<repo>/settings/pages`.
+
+2. Set **Source** to *Deploy from a branch*.
+
+3. Set **Branch** to `gh-pages` at `/(root)` and click **Save**:
+
+    ![pages-config](./pages-config.png)
+
 ## GitHub Actions Workflows
 
-Create the following GitHub Actions workflows in `.github/workflows` and push the changes up to the repository:
+Create the following GitHub Actions workflow in `.github/workflows`:
 
-```yml title=".github/workflows/deploy.yml"
+```yml title=".github/workflows/deploy-docs.yml"
 name: Deploy Docusaurus to GitHub Pages
 
 on:
   push:
+    paths-ignore:
+      - 'README.md'
     branches:
       - main
 
@@ -56,32 +78,14 @@ jobs:
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
 ```
 
-```yml title=".github/workflows/test-deploy.yml"
-name: Test Docusaurus Deployment
+Push the changes up to the remote repository, and verify that the action runs successfully at `https://github.com/<org-or-user>/<repo>/actions`:
 
-on:
-  pull_request:
-    branches:
-      - main
+![workflow-runs](./workflow-runs.png)
 
-jobs:
-  test-deploy:
-    name: Test deployment
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: .
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: npm
-      
-      - name: Install dependencies
-        run: npm ci
-      - name: Test build website
-        run: npm run build
-```
+Once successful, you should see the following in the GitHub Pages settings for the repo:
 
-## Configure GitHub Repository
+![pages-deployed](./pages-deployed.png)
+
+Click **Visit Site** to see the hosted documentation:
+
+![hosted-docs](./hosted-docs.png)
