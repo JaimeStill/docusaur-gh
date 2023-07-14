@@ -7,7 +7,7 @@ title: Deploy
 
 :::caution
 
-Ensure that [docusaurus.config.js](../docusaurus.config.js) is correctly configured as outlined in the [Configuration](./config.md#configure) guide.
+Ensure that [docusaurus.config.js](../docusaurus.config.js) is correctly configured as outlined in the [Configuration](./config#configure) guide.
 
 :::
 
