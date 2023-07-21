@@ -106,7 +106,7 @@ const sidebars = {
 }
 ```
 
-### Additional Languages
+### Code Block Languages
 
 Per [the documentation](https://docusaurus.io/docs/next/markdown-features/code-blocks#supported-languages), only a subset of [commonly used languages](https://github.com/FormidableLabs/prism-react-renderer/blob/master/packages/generate-prism-languages/index.ts#L9-L23) are configured by default. Additional [Prism-supported languages](https://prismjs.com/#supported-languages) need to be added to defined:
 
